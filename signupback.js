@@ -3,26 +3,23 @@ import fs from "fs";
 
 // Guardar inf usuario
 
-
-
-var usuario = {
-    nombre: "[]",
-    password: "[]",
-    email: "[]",
- };
-
-
-
- onEvent("signup", (data) => {
-    var user = {
-        nombre: data.nombre,
-        password: data.password,
-        email: data.email,
-     }
-   
+export let signUp = (data)=>{
    let usuario = JSON.parse(fs.readFileSync("./usuarios.json", "utf-8"));
-   usuario.push(user);
-   fs.writeFileSync("usuarios.json", JSON.stringify(usuario));
-   });
+   if (!usuario.usuario.includes(data.usuario)) {
+      usuario.push(data);
+      fs.writeFileSync("usuarios.json", JSON.stringify(usuario));
+      return "Usuario cargado correctamente"
+   }else{
+      return "Ese usuario ya existe"
+   }
+}
+
+
+
+
+
+
+  
+   
 
    
